@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ADP.API.Api/ADP.API.Api.csproj" />
+  <Project Path="ADP.API.Model/ADP.API.Model.csproj" />
+  <Project Path="ADP.API.Service/ADP.API.Service.csproj" />
+</Solution>
