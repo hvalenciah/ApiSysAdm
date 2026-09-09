@@ -44,6 +44,11 @@ namespace ADP.API.Service.Services.Balcan
             return BaseQuery().FirstOrDefault(v => v.Id == id);
         }
 
+        public VistaDTO? GetByName(string name)
+        {
+            return BaseQuery().FirstOrDefault(v => v.Nombre == name);
+        }
+
         public List<VistaDTO> GetByModuleId(int moduleId)
         {
             return BaseQuery()

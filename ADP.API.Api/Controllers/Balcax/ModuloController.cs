@@ -28,10 +28,32 @@ namespace ADP.API.Api.Controllers
             });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
         public IActionResult GetById(int id)
         {
             var modulo = _moduloService.GetById(id);
+            if (modulo == null)
+            {
+                return new JsonResult(new ResponseModel<object>
+                {
+                    Success = false,
+                    Message = "Módulo no encontrado",
+                    Data = null
+                });
+            }
+
+            return new JsonResult(new ResponseModel<object>
+            {
+                Success = true,
+                Message = "Módulo encontrado",
+                Data = modulo
+            });
+        }
+
+        [HttpGet("by-name/{name}")]
+        public IActionResult GetByName(string name)
+        {
+            var modulo = _moduloService.GetByName(name);
             if (modulo == null)
             {
                 return new JsonResult(new ResponseModel<object>

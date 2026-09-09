@@ -28,10 +28,32 @@ namespace ADP.API.Api.Controllers
             });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
         public IActionResult GetById(int id)
         {
             var vista = _vistaService.GetById(id);
+            if (vista == null)
+            {
+                return new JsonResult(new ResponseModel<object>
+                {
+                    Success = false,
+                    Message = "Vista no encontrada",
+                    Data = null
+                });
+            }
+
+            return new JsonResult(new ResponseModel<object>
+            {
+                Success = true,
+                Message = "Vista encontrada",
+                Data = vista
+            });
+        }
+
+        [HttpGet("by-name/{name}")]
+        public IActionResult GetByName(string name)
+        {
+            var vista = _vistaService.GetByName(name);
             if (vista == null)
             {
                 return new JsonResult(new ResponseModel<object>

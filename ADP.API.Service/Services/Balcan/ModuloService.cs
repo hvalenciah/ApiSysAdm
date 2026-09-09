@@ -30,6 +30,12 @@ namespace ADP.API.Service.Services.Balcan
             return entity != null ? ModuloMapper.ToDTO(entity) : null;
         }
 
+        public ModuloDTO? GetByName(string name)
+        {
+            var entity = _context.Modulos.FirstOrDefault(m => m.Nombre == name);
+            return entity != null ? ModuloMapper.ToDTO(entity) : null;
+        }
+
         public ModuloDTO Add(ModuloDTO dto)
         {
             var entity = ModuloMapper.ToEntity(dto);

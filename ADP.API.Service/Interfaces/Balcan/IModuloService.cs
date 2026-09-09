@@ -6,6 +6,7 @@ namespace ADP.API.Service.Interfaces.Balcan
     {
         List<ModuloDTO> GetAll();
         ModuloDTO? GetById(int id);
+        ModuloDTO? GetByName(string name);
         ModuloDTO Add(ModuloDTO dto);
         bool Update(ModuloDTO dto);
         bool Delete(int id);

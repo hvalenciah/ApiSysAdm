@@ -20,6 +20,7 @@ builder.Services.AddDbContext<BalcanContext>(options =>
 
 // Servicios
 builder.Services.AddScoped<IModuloService, ModuloService>();
+builder.Services.AddScoped<IModuloVistaService, ModuloVistaService>();
 builder.Services.AddScoped<IPermisoService, PermisoService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IVistaService, VistaService>();
