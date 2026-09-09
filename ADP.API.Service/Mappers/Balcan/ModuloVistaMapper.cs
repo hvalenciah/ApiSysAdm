@@ -1,3 +1,4 @@
+using System.Linq;
 using ADP.API.Service.DTOs.Balcan;
 using APD.API.Model.Entitites.Balcan;
 
@@ -5,19 +6,32 @@ namespace ADP.API.Service.Mappers.Balcan
 {
     public static class ModuloVistaMapper
     {
-        public static VistaDTO ToDTO(Vistum entity)
+        public static VistaDetalleDTO ToVistaDetalleDTO(Vistum entity)
         {
-            if (entity == null) return null;
+            if (entity == null) return null!;
 
-            return new VistaDTO
+            return new VistaDetalleDTO
             {
-                Id = entity.Id,
+                IdVista = entity.Id,
                 Nombre = entity.Nombre,
                 RouterLink = entity.RouterLink,
                 Icon = entity.Icon,
                 Visible = entity.Visible,
-                IdModulo = entity.IdModulo,
                 IdVistaPadre = entity.IdVistaPadre
+            };
+        }
+
+        public static ModuloConVistasDTO ToModuloConVistasDTO(Modulo moduloEntity)
+        {
+            if (moduloEntity == null) return null!;
+
+            return new ModuloConVistasDTO
+            {
+                IdModulo = moduloEntity.Id,
+                NombreModulo = moduloEntity.Nombre ?? string.Empty,
+                Vistas = moduloEntity.Vista != null 
+                    ? moduloEntity.Vista.Select(ToVistaDetalleDTO).ToList() 
+                    : new List<VistaDetalleDTO>()
             };
         }
     }

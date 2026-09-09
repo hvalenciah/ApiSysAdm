@@ -1,4 +1,4 @@
-namespace ADP.API.Model.DTOs
+namespace ADP.API.Model.DTOs.Balcan
 {
     public class ModuloPermisoDTO
     {

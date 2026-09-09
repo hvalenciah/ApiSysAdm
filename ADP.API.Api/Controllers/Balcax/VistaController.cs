@@ -118,8 +118,8 @@ namespace ADP.API.Api.Controllers
             });
         }
 
-        [HttpPost("delete")]
-        public IActionResult Delete([FromBody] int id)
+        [HttpPost("delete/{id}")]
+        public IActionResult Delete(int id)
         {
             var result = _vistaService.Delete(id);
             if (!result)

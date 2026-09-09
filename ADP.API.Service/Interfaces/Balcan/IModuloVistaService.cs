@@ -1,11 +1,14 @@
+using System.Collections.Generic;
 using ADP.API.Service.DTOs.Balcan;
 
 namespace ADP.API.Service.Interfaces.Balcan
 {
     public interface IModuloVistaService
     {
-        IEnumerable<VistaDTO> GetByModuleId(int idModulo);
-        VistaDTO AddViewToModule(ModuloVistaDTO dto);
-        bool DeleteViewFromModule(ModuloVistaDTO dto);
+        IEnumerable<ModuloConVistasDTO> GetAll();
+        ModuloConVistasDTO? GetByModuleIdAsync(int idModulo);
+        bool AddViewToModuleAsync(ModuloVistaDTO dto);
+        bool UpdateModuleViewsAsync(ActualizarModuloVistasDTO dto);
+        bool DeleteViewFromModuleAsync(ModuloVistaDTO dto);
     }
 }

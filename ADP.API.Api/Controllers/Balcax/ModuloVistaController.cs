@@ -7,48 +7,119 @@ namespace ADP.API.Api.Controllers
 {
     [ApiController]
     [Route("Balcan/[controller]")]
-    public class VistaController : ControllerBase
+    public class ModuloVistaController : ControllerBase
     {
-        private readonly IVistaService _vistaService;
+        private readonly IModuloVistaService _moduloVistaService;
 
-        public VistaController(IVistaService vistaService)
+        public ModuloVistaController(IModuloVistaService moduloVistaService)
         {
-            _vistaService = vistaService;
+            _moduloVistaService = moduloVistaService;
         }
 
-        [HttpGet("{idModulo}/vista")]
+        [HttpGet]
+        public IActionResult Index()
+        {
+            var modulos = _moduloVistaService.GetAll();
+
+            return Ok(new ResponseModel<object>
+            {
+                Success = true,
+                Message = "Módulos y sus vistas obtenidos correctamente",
+                Data = modulos
+            });
+        }
+
+        [HttpGet("{idModulo}")]
         public IActionResult GetByModuleId(int idModulo)
         {
-            var vista = _vistaService.GetByModuleId(idModulo);
-            return new JsonResult(new ResponseModel<object>
+            var moduloConVistas = _moduloVistaService.GetByModuleIdAsync(idModulo);
+
+            if (moduloConVistas == null)
+            {
+                return NotFound(new ResponseModel<object>
+                {
+                    Success = false,
+                    Message = $"No se encontró el módulo con ID {idModulo}",
+                    Data = null
+                });
+            }
+
+            return Ok(new ResponseModel<object>
             {
                 Success = true,
                 Message = "Vistas del módulo obtenidas correctamente",
-                Data = vista
+                Data = moduloConVistas
             });
         }
 
-        [HttpPost("{idModulo}/asociar-vista")]
+        [HttpPost("create")]
         public IActionResult AddViewToModule([FromBody] ModuloVistaDTO dto)
         {
-            var vista = _vistaService.AddViewToModule(dto);
-            return new JsonResult(new ResponseModel<object>
+            var result = _moduloVistaService.AddViewToModuleAsync(dto);
+
+            if (!result)
+            {
+                return BadRequest(new ResponseModel<object>
+                {
+                    Success = false,
+                    Message = "No se pudo asociar la vista al módulo. Verifica los IDs de módulo y vista.",
+                    Data = null
+                });
+            }
+
+            return Ok(new ResponseModel<object>
             {
                 Success = true,
                 Message = "Vista asociada correctamente al módulo",
-                Data = vista
+                Data = dto
             });
         }
 
-        [HttpPost("{idModulo}/remover-vista")]
+        [HttpPost("update")]
+        public IActionResult UpdateModuleViews([FromBody] ActualizarModuloVistasDTO dto)
+        {
+            var result = _moduloVistaService.UpdateModuleViewsAsync(dto);
+
+            if (!result)
+            {
+                return BadRequest(new ResponseModel<object>
+                {
+                    Success = false,
+                    Message = $"No se pudieron actualizar las vistas. Verifica que el módulo con ID {dto.IdModulo} exista.",
+                    Data = null
+                });
+            }
+
+            var moduloActualizado = _moduloVistaService.GetByModuleIdAsync(dto.IdModulo);
+
+            return Ok(new ResponseModel<object>
+            {
+                Success = true,
+                Message = "Relaciones del módulo con las vistas actualizadas correctamente",
+                Data = moduloActualizado
+            });
+        }
+
+        [HttpPost("delete")]
         public IActionResult DeleteViewFromModule([FromBody] ModuloVistaDTO dto)
         {
-            var vista = _vistaService.DeleteViewFromModule(dto);
-            return new JsonResult(new ResponseModel<object>
+            var result = _moduloVistaService.DeleteViewFromModuleAsync(dto);
+
+            if (!result)
+            {
+                return NotFound(new ResponseModel<object>
+                {
+                    Success = false,
+                    Message = "No se encontró la vista asociada al módulo especificado.",
+                    Data = null
+                });
+            }
+
+            return Ok(new ResponseModel<object>
             {
                 Success = true,
                 Message = "Vista eliminada del módulo correctamente",
-                Data = vista
+                Data = dto
             });
         }
     }

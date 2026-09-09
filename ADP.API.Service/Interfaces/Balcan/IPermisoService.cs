@@ -1,10 +1,10 @@
-using ADP.API.Model.DTOs;
+using ADP.API.Model.DTOs.Balcan;
 
 namespace ADP.API.Service.Interfaces.Balcan
 {
     public interface IPermisoService
     {
-        Task<UsuarioPermisosDTO?> GetPermisosPorUsuarioAsync(int idUsuario);
-        Task<bool> GuardarPermisosUsuarioAsync(GuardarPermisoDTO dto);
+        Task<UsuarioPermisosDTO?> GetPermissionUserAsync(int idUsuario);
+        Task<bool> SavePermissionUserAsync(GuardarPermisoDTO dto);
     }
 }

@@ -1,5 +1,5 @@
 using ADP.API.Model.Data.Balcan;
-using ADP.API.Model.DTOs;
+using ADP.API.Model.DTOs.Balcan;
 using ADP.API.Service.Interfaces.Balcan;
 using ADP.API.Service.Mappers.Balcan;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,7 @@ namespace ADP.API.Service.Services.Balcan
             _context = context;
         }
 
-        public async Task<UsuarioPermisosDTO?> GetPermisosPorUsuarioAsync(int idUsuario)
+        public async Task<UsuarioPermisosDTO?> GetPermissionUserAsync(int idUsuario)
         {
             // 1. Validar existencia del usuario
             var usuario = await _context.Usuarios
@@ -72,7 +72,7 @@ namespace ADP.API.Service.Services.Balcan
             };
         }
 
-        public async Task<bool> GuardarPermisosUsuarioAsync(GuardarPermisoDTO dto)
+        public async Task<bool> SavePermissionUserAsync(GuardarPermisoDTO dto)
         {
             // 1. Validar si el usuario existe
             var usuarioExiste = await _context.Usuarios.AnyAsync(u => u.Id == dto.IdUsuario);

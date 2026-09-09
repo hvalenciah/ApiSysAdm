@@ -1,4 +1,4 @@
-using ADP.API.Model.DTOs;
+using ADP.API.Model.DTOs.Balcan;
 using APD.API.Model.Entitites.Balcan;
 
 namespace ADP.API.Service.Mappers.Balcan

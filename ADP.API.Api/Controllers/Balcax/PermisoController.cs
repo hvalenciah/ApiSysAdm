@@ -1,4 +1,4 @@
-using ADP.API.Model.DTOs;
+using ADP.API.Model.DTOs.Balcan;
 using ADP.API.Model.Model;
 using ADP.API.Service.Interfaces.Balcan;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +19,11 @@ namespace ADP.API.Api.Controllers
         /// <summary>
         /// Obtiene el árbol de navegación (Módulos -> Vistas -> Permisos) para un usuario específico.
         /// </summary>
-        /// <param name="idUsuario">ID del usuario a consultar</param>
-        [HttpGet("usuario/{idUsuario}")]
-        public async Task<IActionResult> GetPermisosPorUsuario(int idUsuario)
+        /// <param name="id">ID del usuario a consultar</param>
+        [HttpGet("usuario/{id}")]
+        public async Task<IActionResult> GetPermissionUser(int idUsuario)
         {
-            var data = await _permisoService.GetPermisosPorUsuarioAsync(idUsuario);
+            var data = await _permisoService.GetPermissionUserAsync(idUsuario);
 
             if (data == null)
             {
@@ -46,8 +46,8 @@ namespace ADP.API.Api.Controllers
         /// <summary>
         /// Actualiza los permisos de un usuario.
         /// </summary>
-        [HttpPost("guardar")]
-        public async Task<IActionResult> GuardarPermisos([FromBody] GuardarPermisoDTO dto)
+        [HttpPost("save")]
+        public async Task<IActionResult> SavePermissionUser([FromBody] GuardarPermisoDTO dto)
         {
             if (dto == null || dto.IdUsuario <= 0)
             {
@@ -59,7 +59,7 @@ namespace ADP.API.Api.Controllers
                 });
             }
 
-            var resultado = await _permisoService.GuardarPermisosUsuarioAsync(dto);
+            var resultado = await _permisoService.SavePermissionUserAsync(dto);
 
             if (!resultado)
             {

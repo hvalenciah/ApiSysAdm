@@ -27,7 +27,6 @@ namespace ADP.API.Service.Services.Balcan
                        Icon = v.Icon,
                        RouterLink = v.RouterLink,
                        IdModulo = v.IdModulo,
-                       ModuloNombre = m != null ? m.Nombre : null,
                        IdVistaPadre = v.IdVistaPadre,
                        Nivel = v.Nivel,
                        Visible = v.Visible
