@@ -21,16 +21,16 @@ namespace ADP.API.Api.Controllers
         /// </summary>
         /// <param name="id">ID del usuario a consultar</param>
         [HttpGet("usuario/{id}")]
-        public async Task<IActionResult> GetPermissionUser(int idUsuario)
+        public async Task<IActionResult> GetPermission(int id)
         {
-            var data = await _permisoService.GetPermissionUserAsync(idUsuario);
+            var data = await _permisoService.GetPermission(id);
 
             if (data == null)
             {
                 return new JsonResult(new ResponseModel<UsuarioPermisosDTO>
                 {
                     Success = false,
-                    Message = $"El usuario con ID {idUsuario} no fue encontrado.",
+                    Message = $"El usuario con ID {id} no fue encontrado.",
                     Data = null
                 });
             }
@@ -47,7 +47,7 @@ namespace ADP.API.Api.Controllers
         /// Actualiza los permisos de un usuario.
         /// </summary>
         [HttpPost("save")]
-        public async Task<IActionResult> SavePermissionUser([FromBody] GuardarPermisoDTO dto)
+        public async Task<IActionResult> SavePermission([FromBody] GuardarPermisoDTO dto)
         {
             if (dto == null || dto.IdUsuario <= 0)
             {
@@ -59,7 +59,7 @@ namespace ADP.API.Api.Controllers
                 });
             }
 
-            var resultado = await _permisoService.SavePermissionUserAsync(dto);
+            var resultado = await _permisoService.SavePermission(dto);
 
             if (!resultado)
             {

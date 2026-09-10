@@ -16,7 +16,7 @@ namespace ADP.API.Service.Services.Balcan
             _context = context;
         }
 
-        public async Task<UsuarioPermisosDTO?> GetPermissionUserAsync(int idUsuario)
+        public async Task<UsuarioPermisosDTO?> GetPermission(int idUsuario)
         {
             // 1. Validar existencia del usuario
             var usuario = await _context.Usuarios
@@ -72,7 +72,7 @@ namespace ADP.API.Service.Services.Balcan
             };
         }
 
-        public async Task<bool> SavePermissionUserAsync(GuardarPermisoDTO dto)
+        public async Task<bool> SavePermission(GuardarPermisoDTO dto)
         {
             // 1. Validar si el usuario existe
             var usuarioExiste = await _context.Usuarios.AnyAsync(u => u.Id == dto.IdUsuario);
