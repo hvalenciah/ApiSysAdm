@@ -61,19 +61,27 @@ namespace ADP.API.Service.Services.Balcan
                 .Select(u => UsuarioMapper.ToDTO(u))
                 .ToList();
         }
-        public UsuarioDTO? GetByFullName(string fullName)
+
+        public List<UsuarioDTO> GetByFullname(string fullName)
         {
             if (string.IsNullOrWhiteSpace(fullName))
-                return null;
+                return new List<UsuarioDTO>();
 
-            var search = fullName.Trim();
+            // 1. Limpiar y separar la consulta en palabras individuales
+            var words = fullName.Trim()
+                                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            var user = _context.Usuarios
-                .FirstOrDefault(u => u.Nombre.Contains(search) || 
-                                     u.Apellidos.Contains(search) ||
-                                     (u.Nombre + " " + u.Apellidos).Contains(search));
+            var query = _context.Usuarios.AsQueryable();
 
-            return user == null ? null : UsuarioMapper.ToDTO(user);
+            // 2. Acumular condiciones WHERE: Cada palabra debe estar presente en (Nombre + " " + Apellidos)
+            foreach (var word in words)
+            {
+                var w = word.ToLower();
+                query = query.Where(u => (u.Nombre + " " + u.Apellidos).ToLower().Contains(w));
+            }
+
+            // 3. Proyectar a DTO y ejecutar la consulta
+            return query.Select(u => UsuarioMapper.ToDTO(u)).ToList();
         }
 
         public UsuarioDTO? GetByEmail(string email)
@@ -85,7 +93,7 @@ namespace ADP.API.Service.Services.Balcan
 
             return user == null ? null : UsuarioMapper.ToDTO(user);
         }
-
+        
         public UsuarioDTO? GetByPhone(string phone)
         {
             if (string.IsNullOrWhiteSpace(phone))
@@ -98,6 +106,19 @@ namespace ADP.API.Service.Services.Balcan
                                     u.Telefono.Contains(search));
 
             return user == null ? null : UsuarioMapper.ToDTO(user);
+        }
+
+        public List<UsuarioDTO> GetByAvatar(string avatar)
+        {
+            if (string.IsNullOrWhiteSpace(avatar))
+                return new List<UsuarioDTO>();
+
+            var search = avatar.Trim();
+
+            return _context.Usuarios
+                .Where(u => u.Avatar != null && u.Avatar.Contains(search))
+                .Select(u => UsuarioMapper.ToDTO(u))
+                .ToList();
         }
 
         public UsuarioDTO Add(UsuarioDTO dto)

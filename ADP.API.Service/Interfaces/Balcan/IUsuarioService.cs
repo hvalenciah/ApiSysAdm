@@ -15,8 +15,10 @@ namespace ADP.API.Service.Interfaces.Balcan
         UsuarioDTO? GetById(int id);
         List<UsuarioDTO> GetByName(string name);
         List<UsuarioDTO> GetByLastName(string lastName);
+        public List<UsuarioDTO> GetByFullname(string fullName);
         UsuarioDTO? GetByEmail(string email);
         UsuarioDTO? GetByPhone(string phone);
+        List<UsuarioDTO> GetByAvatar(string avatar);
         UsuarioDTO Add(UsuarioDTO dto);
         bool Update(UsuarioDTO dto);
         bool Delete(int id);

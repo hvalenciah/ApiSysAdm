@@ -74,6 +74,18 @@ namespace ADP.API.Api.Controllers
             });
         }
 
+        [HttpGet("by-fullname/{fullname}")]
+        public ActionResult<ResponseModel<object>> GetByFullname(string fullname)
+        {
+            var users = _UsuarioService.GetByFullname(fullname);
+            return Ok(new ResponseModel<object>
+            {
+                Success = true,
+                Message = $"Se encontraron {users.Count} coincidencias por nombre completo",
+                Data = users
+            });
+        }
+
         [HttpGet("by-email/{email}")]
         public ActionResult<ResponseModel<object>> GetByEmail(string email)
         {
@@ -100,6 +112,28 @@ namespace ADP.API.Api.Controllers
         public ActionResult<ResponseModel<object>> GetByPhone(string phone)
         {
             var user = _UsuarioService.GetByPhone(phone);
+            if (user == null)
+            {
+                return NotFound(new ResponseModel<object>
+                {
+                    Success = false,
+                    Message = "Usuario no encontrado",
+                    Data = null
+                });
+            }
+
+            return Ok(new ResponseModel<object>
+            {
+                Success = true,
+                Message = "Usuario encontrado",
+                Data = user
+            });
+        }
+
+        [HttpGet("by-avatar/{avatar}")]
+        public ActionResult<ResponseModel<object>> GetByAvatar(string avatar)
+        {
+            var user = _UsuarioService.GetByAvatar(avatar);
             if (user == null)
             {
                 return NotFound(new ResponseModel<object>
