@@ -35,6 +35,8 @@ public partial class Usuario
 
     public int? UsuarioFkModificado { get; set; }
 
+    public virtual ICollection<EnlacesAdministrativo> EnlacesAdministrativos { get; set; } = new List<EnlacesAdministrativo>();
+
     public virtual Empresa IdEmpresaNavigation { get; set; } = null!;
 
     public virtual ICollection<Usuario> InverseUsuarioFkModificadoNavigation { get; set; } = new List<Usuario>();

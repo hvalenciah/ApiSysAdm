@@ -1,5 +1,4 @@
 using ADP.API.Model.Data.Balcan;
-using APD.API.Model.Entitites.Balcan;
 using ADP.API.Service.Interfaces.Balcan;
 using ADP.API.Service.DTOs.Balcan;
 using ADP.API.Service.Mappers.Balcan;

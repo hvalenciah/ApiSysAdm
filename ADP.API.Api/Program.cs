@@ -22,9 +22,11 @@ builder.Services.AddDbContext<BalcanContext>(options =>
 builder.Services.AddScoped<IModuloService, ModuloService>();
 builder.Services.AddScoped<IModuloVistaService, ModuloVistaService>();
 builder.Services.AddScoped<IPermisoService, PermisoService>();
+builder.Services.AddScoped<ITrabajadorService, TrabajadorService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IVistaService, VistaService>();
 builder.Services.AddScoped<IVistaUsuarioService, VistaUsuarioService>();
+builder.Services.AddScoped<IPlazaTrabajadorService, PlazaTrabajadorService>();
 
 builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", 
         builder => builder

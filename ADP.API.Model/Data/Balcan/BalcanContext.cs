@@ -22,9 +22,19 @@ public partial class BalcanContext : DbContext
 
     public virtual DbSet<Empresa> Empresas { get; set; }
 
+    public virtual DbSet<EnlacesAdministrativo> EnlacesAdministrativos { get; set; }
+
+    public virtual DbSet<InfoPlazasCompaq> InfoPlazasCompaqs { get; set; }
+
     public virtual DbSet<Log> Logs { get; set; }
 
     public virtual DbSet<Modulo> Modulos { get; set; }
+
+    public virtual DbSet<MvInfoTrabajadorCompaq> MvInfoTrabajadorCompaqs { get; set; }
+
+    public virtual DbSet<MvPeriodosVacacionesActiva> MvPeriodosVacacionesActivas { get; set; }
+
+    public virtual DbSet<MvcolaboradoresVisiblesUsuarioEspecial> MvcolaboradoresVisiblesUsuarioEspecials { get; set; }
 
     public virtual DbSet<PagoPaquete> PagoPaquetes { get; set; }
 
@@ -105,6 +115,119 @@ public partial class BalcanContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<EnlacesAdministrativo>(entity =>
+        {
+            entity.HasKey(e => e.IdUsuarioBc);
+
+            entity.Property(e => e.IdUsuarioBc).HasColumnName("id_UsuarioBC");
+            entity.Property(e => e.CodigoEnlace)
+                .HasMaxLength(3)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_ENLACE");
+            entity.Property(e => e.FechaDeCreacion).HasColumnName("FECHA_DE_CREACION");
+            entity.Property(e => e.FechaDeModificacion).HasColumnName("FECHA_DE_MODIFICACION");
+            entity.Property(e => e.FkCodigoTrabajdor).HasColumnName("FK_CODIGO_TRABAJDOR");
+            entity.Property(e => e.FkIdUsuario).HasColumnName("FK_ID_USUARIO");
+            entity.Property(e => e.Habilitado)
+                .HasDefaultValue(true)
+                .HasColumnName("HABILITADO");
+            entity.Property(e => e.NumeroEnlace)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("NUMERO_ENLACE");
+            entity.Property(e => e.UsuarioModificador)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("USUARIO_MODIFICADOR");
+
+            entity.HasOne(d => d.FkIdUsuarioNavigation).WithMany(p => p.EnlacesAdministrativos)
+                .HasForeignKey(d => d.FkIdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EnlacesAdministrativos_Usuario");
+        });
+
+        modelBuilder.Entity<InfoPlazasCompaq>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__INFO_PLA__3214EC279611CC23");
+
+            entity.ToTable("INFO_PLAZAS_COMPAQ", "CDP");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.CausaBaja)
+                .IsUnicode(false)
+                .HasColumnName("CAUSA_BAJA");
+            entity.Property(e => e.CodigoArea).HasColumnName("CODIGO_AREA");
+            entity.Property(e => e.CodigoDepto).HasColumnName("CODIGO_DEPTO");
+            entity.Property(e => e.CodigoDireccion).HasColumnName("CODIGO_DIRECCION");
+            entity.Property(e => e.CodigoGerencia).HasColumnName("CODIGO_GERENCIA");
+            entity.Property(e => e.CodigoPlaza)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_PLAZA");
+            entity.Property(e => e.CodigoTrabajador)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_TRABAJADOR");
+            entity.Property(e => e.DescDepartamento)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("DESC_DEPARTAMENTO");
+            entity.Property(e => e.DescPuesto)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("DESC_PUESTO");
+            entity.Property(e => e.Empresa)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("EMPRESA");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .HasColumnName("ESTADO");
+            entity.Property(e => e.FechaBaja).HasColumnName("FECHA_BAJA");
+            entity.Property(e => e.FechaCreacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_CREACION");
+            entity.Property(e => e.FechaIngreso).HasColumnName("FECHA_INGRESO");
+            entity.Property(e => e.FechaModificacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_MODIFICACION");
+            entity.Property(e => e.FechaReIngreso).HasColumnName("FECHA_RE_INGRESO");
+            entity.Property(e => e.IdDepartamento).HasColumnName("ID_DEPARTAMENTO");
+            entity.Property(e => e.IdPuesto).HasColumnName("ID_PUESTO");
+            entity.Property(e => e.Materno)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("MATERNO");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("NOMBRE");
+            entity.Property(e => e.NumeroDepartamento).HasColumnName("NUMERO_DEPARTAMENTO");
+            entity.Property(e => e.NumeroPuesto).HasColumnName("NUMERO_PUESTO");
+            entity.Property(e => e.Paterno)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("PATERNO");
+            entity.Property(e => e.SegmentoNegocio).HasColumnName("SEGMENTO_NEGOCIO");
+            entity.Property(e => e.Sexo)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("SEXO");
+            entity.Property(e => e.TipoCambio)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("TIPO_CAMBIO");
+            entity.Property(e => e.TipoEmpleado)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("TIPO_EMPLEADO");
+            entity.Property(e => e.UsuarioModificacion)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("USUARIO_MODIFICACION");
+        });
+
         modelBuilder.Entity<Log>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Log__3213E83F5B3F4972");
@@ -130,6 +253,146 @@ public partial class BalcanContext : DbContext
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<MvInfoTrabajadorCompaq>(entity =>
+        {
+            entity.HasKey(e => e.IdInfoTrabajador).HasName("PK__MV_INFO___D2C5B6BE587AAFDD");
+
+            entity.ToTable("MV_INFO_TRABAJADOR_COMPAQ");
+
+            entity.Property(e => e.IdInfoTrabajador).HasColumnName("ID_INFO_TRABAJADOR");
+            entity.Property(e => e.ApellidoMaterno)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("APELLIDO_MATERNO");
+            entity.Property(e => e.ApellidoPaterno)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("APELLIDO_PATERNO");
+            entity.Property(e => e.CodigoArea)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_AREA");
+            entity.Property(e => e.CodigoDepartamento)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_DEPARTAMENTO");
+            entity.Property(e => e.CodigoDireccion)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_DIRECCION");
+            entity.Property(e => e.CodigoGerencia)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_GERENCIA");
+            entity.Property(e => e.CodigoTrabajador)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("CODIGO_TRABAJADOR");
+            entity.Property(e => e.CorreoElectronico)
+                .HasMaxLength(60)
+                .IsUnicode(false)
+                .HasColumnName("CORREO_ELECTRONICO");
+            entity.Property(e => e.EstadoTrabajador)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("ESTADO_TRABAJADOR");
+            entity.Property(e => e.FechaCreacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_CREACION");
+            entity.Property(e => e.FechaIngreso)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_INGRESO");
+            entity.Property(e => e.FechaModificacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_MODIFICACION");
+            entity.Property(e => e.FkDepartamentoDescripcion)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("FK_DEPARTAMENTO_DESCRIPCION");
+            entity.Property(e => e.FkIdDepartamento).HasColumnName("FK_ID_DEPARTAMENTO");
+            entity.Property(e => e.FkIdPuesto).HasColumnName("FK_ID_PUESTO");
+            entity.Property(e => e.FkPuestoDescripcion)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("FK_PUESTO_DESCRIPCION");
+            entity.Property(e => e.NombreTrabajador)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("NOMBRE_TRABAJADOR");
+            entity.Property(e => e.NssTrabajador)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("NSS_TRABAJADOR");
+            entity.Property(e => e.NumeroDeEnlace)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("Numero_de_enlace");
+            entity.Property(e => e.NumeroDepartamento).HasColumnName("NUMERO_DEPARTAMENTO");
+            entity.Property(e => e.Sexo)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("SEXO");
+            entity.Property(e => e.TipoEmpleado)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("TIPO_EMPLEADO");
+            entity.Property(e => e.UsuarioModificacion)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("USUARIO_MODIFICACION");
+        });
+
+        modelBuilder.Entity<MvPeriodosVacacionesActiva>(entity =>
+        {
+            entity.HasKey(e => e.IdVacacionesActivas).HasName("PK__MV_PERIO__028EADF1B5430F56");
+
+            entity.ToTable("MV_PERIODOS_VACACIONES_ACTIVAS");
+
+            entity.Property(e => e.IdVacacionesActivas).HasColumnName("ID_VACACIONES_ACTIVAS");
+            entity.Property(e => e.Activo).HasColumnName("ACTIVO");
+            entity.Property(e => e.DiasGozados).HasColumnName("DIAS_GOZADOS");
+            entity.Property(e => e.DiasOtorgados).HasColumnName("DIAS_OTORGADOS");
+            entity.Property(e => e.DiasPendientes).HasColumnName("DIAS_PENDIENTES");
+            entity.Property(e => e.FechaCreacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_CREACION");
+            entity.Property(e => e.FechaModificacion)
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_MODIFICACION");
+            entity.Property(e => e.NumeroTrabajador).HasColumnName("NUMERO_TRABAJADOR");
+            entity.Property(e => e.PeriodoVacacional)
+                .HasMaxLength(9)
+                .IsUnicode(false)
+                .HasColumnName("PERIODO_VACACIONAL");
+            entity.Property(e => e.UsuarioModificacion)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("USUARIO_MODIFICACION");
+            entity.Property(e => e.Vigencia).HasColumnName("VIGENCIA");
+        });
+
+        modelBuilder.Entity<MvcolaboradoresVisiblesUsuarioEspecial>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_MVColab");
+
+            entity.ToTable("MVColaboradores_Visibles_UsuarioEspecial");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.CodigoTrabajador).HasColumnName("CODIGO_TRABAJADOR");
+            entity.Property(e => e.FechaModificacion)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("FECHA_MODIFICACION");
+            entity.Property(e => e.FkIdUsuario).HasColumnName("FK_ID_USUARIO");
+            entity.Property(e => e.UsuarioModificador)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("USUARIO_MODIFICADOR");
+            entity.Property(e => e.Visible)
+                .HasDefaultValue(true)
+                .HasColumnName("VISIBLE");
         });
 
         modelBuilder.Entity<PagoPaquete>(entity =>
