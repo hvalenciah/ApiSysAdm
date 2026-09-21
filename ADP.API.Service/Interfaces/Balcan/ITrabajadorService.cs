@@ -13,7 +13,7 @@ namespace ADP.API.Service.Interfaces.Balcan
     {
         List<TrabajadorDTO> GetAll();
         TrabajadorDTO? GetById(int id);
-        TrabajadorDTO? GetByCode(string codigoTrabajador);
-        List<TrabajadorDTO> GetByFullName(string nombreCompleto);
+        TrabajadorDTO? GetByTrabajador(string codigoTrabajador);
+        List<TrabajadorDTO> GetByFullName(string name);
     }
 }

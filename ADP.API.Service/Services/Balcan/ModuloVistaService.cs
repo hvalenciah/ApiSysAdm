@@ -30,11 +30,11 @@ namespace ADP.API.Service.Services.Balcan
         /// <summary>
         /// Obtiene un módulo con todas sus vistas asociadas.
         /// </summary>
-        public ModuloConVistasDTO? GetByModuleIdAsync(int idModulo)
+        public ModuloConVistasDTO? GetByModuleIdAsync(int id_modulo)
         {
             var modulo = _context.Modulos
                 .Include(m => m.Vista)
-                .FirstOrDefault(m => m.Id == idModulo);
+                .FirstOrDefault(m => m.Id == id_modulo);
 
             if (modulo == null) return null;
 

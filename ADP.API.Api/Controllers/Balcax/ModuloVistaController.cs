@@ -29,17 +29,17 @@ namespace ADP.API.Api.Controllers
             });
         }
 
-        [HttpGet("{idModulo}")]
-        public IActionResult GetByModuleId(int idModulo)
+        [HttpGet("{id_modulo}")]
+        public IActionResult GetByModuleId(int id_modulo)
         {
-            var moduloConVistas = _moduloVistaService.GetByModuleIdAsync(idModulo);
+            var moduloConVistas = _moduloVistaService.GetByModuleIdAsync(id_modulo);
 
             if (moduloConVistas == null)
             {
                 return NotFound(new ResponseModel<object>
                 {
                     Success = false,
-                    Message = $"No se encontró el módulo con ID {idModulo}",
+                    Message = $"No se encontró el módulo con ID {id_modulo}",
                     Data = null
                 });
             }

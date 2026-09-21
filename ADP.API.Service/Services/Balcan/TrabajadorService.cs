@@ -36,7 +36,7 @@ namespace ADP.API.Service.Services.Balcan
             return trabajador != null ? TrabajadorMapper.ToDTO(trabajador) : null;
         }
 
-        public TrabajadorDTO? GetByCode(string codigoTrabajador)
+        public TrabajadorDTO? GetByTrabajador(string codigoTrabajador)
         {
             if (string.IsNullOrWhiteSpace(codigoTrabajador))
                 return null;
@@ -47,13 +47,13 @@ namespace ADP.API.Service.Services.Balcan
             return trabajador != null ? TrabajadorMapper.ToDTO(trabajador) : null;
         }
 
-        public List<TrabajadorDTO> GetByFullName(string fullName)
+        public List<TrabajadorDTO> GetByFullName(string name)
         {
-            if (string.IsNullOrWhiteSpace(fullName))
+            if (string.IsNullOrWhiteSpace(name))
                 return new List<TrabajadorDTO>();
 
             // 1. Limpiar y separar la consulta en palabras individuales
-            var words = fullName.Trim()
+            var words = name.Trim()
                                 .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             var query = _context.MvInfoTrabajadorCompaqs.AsQueryable();

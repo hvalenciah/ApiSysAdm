@@ -51,9 +51,9 @@ namespace ADP.API.Api.Controllers
         }
 
         [HttpGet("by-plaza/{codigo_plaza}")]
-        public ActionResult<ResponseModel<PlazaTrabajadorDTO>> GetByCodigoPlaza(string codigo_plaza)
+        public ActionResult<ResponseModel<PlazaTrabajadorDTO>> GetByPlaza(string codigo_plaza)
         {
-            var data = _plazaTrabajadorService.GetByCodePlaza(codigo_plaza);
+            var data = _plazaTrabajadorService.GetByPlaza(codigo_plaza);
             if (data == null)
             {
                 return NotFound(new ResponseModel<PlazaTrabajadorDTO>
@@ -72,10 +72,10 @@ namespace ADP.API.Api.Controllers
             });
         }
 
-        [HttpGet("by-code/{codigo_trabajador}")]
-        public ActionResult<ResponseModel<PlazaTrabajadorDTO>> GetByCode(string codigo_trabajador)
+        [HttpGet("by-trabajador/{codigo_trabajador}")]
+        public ActionResult<ResponseModel<PlazaTrabajadorDTO>> GetByTrabajador(string codigo_trabajador)
         {
-            var data = _plazaTrabajadorService.GetByCodeTrabajador(codigo_trabajador);
+            var data = _plazaTrabajadorService.GetByTrabajador(codigo_trabajador);
             if (data == null)
             {
                 return NotFound(new ResponseModel<PlazaTrabajadorDTO>
@@ -94,10 +94,10 @@ namespace ADP.API.Api.Controllers
             });
         }
 
-        [HttpGet("by-fullname/{nombrecompleto_trabajador}")]
-        public ActionResult<ResponseModel<List<PlazaTrabajadorDTO>>> GetByFullName(string nombrecompleto_trabajador)
+        [HttpGet("by-fullname/{name}")]
+        public ActionResult<ResponseModel<List<PlazaTrabajadorDTO>>> GetByFullName(string name)
         {
-            var data = _plazaTrabajadorService.GetByFullName(nombrecompleto_trabajador);
+            var data = _plazaTrabajadorService.GetByFullName(name);
             return Ok(new ResponseModel<List<PlazaTrabajadorDTO>>
             {
                 Success = true,

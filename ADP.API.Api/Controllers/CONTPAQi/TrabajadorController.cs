@@ -50,10 +50,10 @@ namespace ADP.API.Api.Controllers
             });
         }
 
-        [HttpGet("by-code/{codigo_trabajador}")]
-        public ActionResult<ResponseModel<TrabajadorDTO>> GetByCode(string codigo_trabajador)
+        [HttpGet("by-trabajador/{codigo_trabajador}")]
+        public ActionResult<ResponseModel<TrabajadorDTO>> GetByTrabajador(string codigo_trabajador)
         {
-            var data = _trabajadorService.GetByCode(codigo_trabajador);
+            var data = _trabajadorService.GetByTrabajador(codigo_trabajador);
             if (data == null)
             {
                 return NotFound(new ResponseModel<TrabajadorDTO>
@@ -72,10 +72,10 @@ namespace ADP.API.Api.Controllers
             });
         }
 
-        [HttpGet("by-fullname/{nombrecompleto_trabajador}")]
-        public ActionResult<ResponseModel<List<TrabajadorDTO>>> GetByFullName(string nombrecompleto_trabajador)
+        [HttpGet("by-fullname/{name}")]
+        public ActionResult<ResponseModel<List<TrabajadorDTO>>> GetByFullName(string name)
         {
-            var data = _trabajadorService.GetByFullName(nombrecompleto_trabajador);
+            var data = _trabajadorService.GetByFullName(name);
             return Ok(new ResponseModel<List<TrabajadorDTO>>
             {
                 Success = true,
